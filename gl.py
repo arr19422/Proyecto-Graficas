@@ -101,7 +101,7 @@ def bbox(*vertices):
 
     return (max(xs), max(ys), min(xs), min(ys))
 
-def MultMatriz(a, b):
+def  Matriz(a, b):
     c = []
     for i in range(0, len(a)):
         temp = []
@@ -227,10 +227,10 @@ class Render(object):
             [vertex.z],
             [1]
         ]
-        tranformed_vertex = MultMatriz(self.Viewport, self.Projection)
-        tranformed_vertex = MultMatriz(tranformed_vertex, self.View)
-        tranformed_vertex = MultMatriz(tranformed_vertex, self.Model)
-        tranformed_vertex = MultMatriz(tranformed_vertex, augmented_vertex)
+        tranformed_vertex =  Matriz(self.Viewport, self.Projection)
+        tranformed_vertex =  Matriz(tranformed_vertex, self.View)
+        tranformed_vertex =  Matriz(tranformed_vertex, self.Model)
+        tranformed_vertex =  Matriz(tranformed_vertex, augmented_vertex)
 
         tranformed_vertex = [
             (tranformed_vertex[0][0]),
@@ -341,8 +341,8 @@ class Render(object):
             [0, 0, 0, 1]
         ]
 
-        rotation_matrix = MultMatriz(rotation_matrix_x, rotation_matrix_y)
-        rotation_matrix = MultMatriz(rotation_matrix, rotation_matrix_z)
+        rotation_matrix =  Matriz(rotation_matrix_x, rotation_matrix_y)
+        rotation_matrix =  Matriz(rotation_matrix, rotation_matrix_z)
 
         scale_matrix = [
             [scale.x, 0, 0, 0],
@@ -351,8 +351,8 @@ class Render(object):
             [0, 0, 0, 1],
         ]
 
-        MultMatrizodelo = MultMatriz(translation_matrix, rotation_matrix)
-        self.Model = MultMatriz(MultMatrizodelo, scale_matrix)
+        Matrizodelo =  Matriz(translation_matrix, rotation_matrix)
+        self.Model =  Matriz( Matrizodelo, scale_matrix)
 
     def loadViewMatrix(self, x, y, z, center):
         M = [
@@ -369,7 +369,7 @@ class Render(object):
             [0, 0, 0, 1]
         ]
 
-        self.View = MultMatriz(M, O)
+        self.View =  Matriz(M, O)
 
     def loadProjectionMatrix(self, coeff):
         self.Projection = [
