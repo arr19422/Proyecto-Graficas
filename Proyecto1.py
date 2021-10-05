@@ -30,6 +30,14 @@ r.load('./assets/modelos/girl.obj', translate=(-0.2, -0.5, 0.3),
        scale=(0.1, 0.1, 0.1), rotate=(0, 0, 0))
 r.draw_arrays('TRIANGLES')
 
+t = Texture('./assets/texturas/planeta.bmp')
+r.active_texture = t
+r.active_shader = textures
+r.lookAt(V3(1, 0, 5), V3(0, 0, 0), V3(0, 1, 0))
+r.load('./assets/modelos/planeta.obj', translate=(0, 0, 0),
+        scale=(0.2, 0.3, 0.3), rotate=(0, 0, 0))
+r.draw_arrays('TRIANGLES')
+
 r. glFinish('out.bmp')
 
 print('****************************************************')
