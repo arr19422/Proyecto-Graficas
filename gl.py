@@ -118,25 +118,6 @@ WHITE = color(255, 255, 255)
 #############################################################################
 # Shaders y Utilidades
 
-def shader(render, **kwargs):
-    w, v, u = kwargs['bar']
-    nA, nB, nC = kwargs['varying_normals']
-
-    iA, iB, iC = [dot(n, render.light) for n in (nA, nB, nC)]
-    intensity = w*iA + u*iB + v*iC
-    if intensity <= 0:
-        r, g, b = 250, 168, 42
-    elif intensity <= 0.5:
-        r, g, b = 237, 182, 71
-    else:
-        r, g, b = 242, 208, 102
-
-    return color(
-        int(r),
-        int(g),
-        int(b)
-    )
-
 def textures(render, **kwargs):
     w, v, u = kwargs['bar']
     tx, ty = kwargs['texture_coords']
@@ -151,12 +132,10 @@ def textures(render, **kwargs):
         r = 0
     if r > 256:
         r = 255
-
     if b < 0:
         b = 0
     if b > 256:
         b = 255
-
     if g < 0:
         g = 0
     if g > 256:
