@@ -1,4 +1,6 @@
 import struct
+import numpy
+
 
 def color(r, g, b):
   return bytes([b, g, r])
@@ -13,6 +15,7 @@ class Obj(object):
     def __init__(self, filename):
         with open(filename) as f:
             self.lines = f.read().splitlines()
+
         self.vertices = []
         self.tvertices = []      
         self.normals = []
@@ -30,7 +33,7 @@ class Obj(object):
                     self.vertices.append(list(map(float, value.split(' '))))
                 elif prefix == 'vt':
                     self.tvertices.append(list(map(float, value.strip().split(' '))))
-                elif prefix == 'vn': #normales
+                elif prefix == 'vn':
                     self.normals.append(list(map(float,value.split(' '))))
                 elif prefix == 'f':
                     self.faces.append([list(map(try_int, face.split('/'))) for face in value.split(' ')])         
@@ -42,9 +45,10 @@ class Texture(object):
 
     def read(self):
         image = open(self.path, "rb")
-        image.seek(10)  
-        header_size = struct.unpack("=l", image.read(4))[0] 
-        image.seek(18)
+        image.seek(2 + 4 + 4)  
+        header_size = struct.unpack("=l", image.read(4))[0]
+        image.seek(2 + 4 + 4 + 4 + 4)
+        
         self.width = struct.unpack("=l", image.read(4))[0]
         self.height = struct.unpack("=l", image.read(4))[0]
         self.pixels = []
